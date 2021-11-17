@@ -17,6 +17,7 @@ on:
       - master 
     paths-ignore:
     - '.github/**'   
+  workflow_dispatch:
     
 
 # Environment variables available to all jobs and steps in this workflow
