@@ -15,9 +15,14 @@
 # If building locally, you have to complete a maven build first, before running the Docker build
 
 # FROM openliberty/open-liberty:21.0.0.9-kernel-slim-java11-openj9-ubi
+# FROM openliberty/open-liberty:21.0.0.9-full-java11-openj9-ubi-s390x
+
 FROM openliberty/open-liberty:21.0.0.9-full-java11-openj9-ubi
 USER root
 ARG VERBOSE=true
+ARG CREATE_OPENJ9_SCC=false
+ENV OPENJ9_SCC=false
+
 
 COPY --chown=1001:0 src/main/liberty/config /config
 
@@ -28,3 +33,5 @@ COPY --chown=1001:0 target/TraderUI.war /config/apps/TraderUI.war
 
 USER 1001
 RUN configure.sh
+
+
