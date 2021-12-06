@@ -144,7 +144,7 @@ jobs:
         echo "${APP_IMAGE}"
         echo "${VERSION}"
         yq --version
-        yq e ".spec.template.spec.containers.image = \"$APP_IMAGE:$VERSION\"" -i "${GITOPS_DIR}/trader-deployment.yaml"
+        yq e ".spec.template.spec.containers[0].image = \"$APP_IMAGE:$VERSION\"" -i "${GITOPS_DIR}/trader-deployment.yaml"
         # yq e ".spec.trader.image.tag = \"$VERSION\"" -i "${GITOPS_DIR}/trader-deployment.yaml"
         cat "${GITOPS_DIR}/trader-deployment.yaml"          
         if [[ $(git status -s | wc -l) -eq 0 ]]; then
