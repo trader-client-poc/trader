@@ -16,6 +16,15 @@ static {
   <head>
     <title>Stock Trader</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script>
+      (function(s,t,a,n){s[t]||(s[t]=a,n=s[a]=function(){n.q.push(arguments)},
+      n.q=[],n.v=2,n.l=1*new Date)})(window,"InstanaEumObject","ineum");
+
+      ineum('reportingUrl', 'https://eum-orange-saas.instana.io');
+      ineum('key', 'Ug33B-6oS1ebQGUCTJB86A');
+      ineum('trackSessions');
+    </script>
+    <script defer crossorigin="anonymous" src="https://eum.instana.io/eum.min.js"></script>
   </head>
   <body>
     <img src="header.jpg" width="534" height="200" alt="header image"/>
