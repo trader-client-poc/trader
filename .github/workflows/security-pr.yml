@@ -1,0 +1,78 @@
+name: Security checks on PR
+
+on: pull_request
+
+env:
+  SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+  # EDIT secrets with with your registry, registry path, and apikey
+  REGISTRY: quay.io
+  REGISTRY_NAMESPACE:  ${{ secrets.REGISTRY_NAMESPACE }}
+  # EDIT with your registry username.
+  REGISTRY_USER: ${{ secrets.REGISTRY_USER }}
+  REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}  
+  APP_NAME: trader
+
+jobs:
+  dependency-scan:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run Snyk to check for vulnerabilities
+      uses: snyk/actions/maven@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        args: --sarif-file-output=snyk.sarif --severity-threshold=high
+    - name: Upload result to GitHub Code Scanning
+      if: always()    
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: snyk.sarif        
+    - name: List results
+      if: always()
+      run: |
+        # cat snyk-output.json
+        cat snyk.sarif
+        # jq -c . snyk-output.json > sync-compact.json
+        # cat sync-compact.json
+        # CC=$(cat snyk-output.json)
+        # echo ${CC//\"/\\\"}
+        # echo ${CC//\"/\\\"} > sync-compact.json
+  image-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login to Quay.io
+        uses: docker/login-action@v1
+        with:
+          registry: ${{env.REGISTRY}}
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}      
+      - name: Build an image from Dockerfile
+        run: |
+          docker build -t  "$REGISTRY"/"$REGISTRY_NAMESPACE"/"$APP_NAME":${{ github.sha }} .
+      # Push the image to Image Registry
+      - name: Push the image to Registry
+        id: push-to-registry
+        run: |
+          docker login -u="$REGISTRY_USER" -p="$REGISTRY_PASSWORD" "$REGISTRY"
+          docker push $REGISTRY/$REGISTRY_NAMESPACE/$APP_NAME:${{ github.sha }}
+          
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: '${{env.REGISTRY}}/${{ secrets.REGISTRY_NAMESPACE }}/${{env.APP_NAME}}:${{ github.sha }}'
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'trivy-results.sarif'
+          exit-code: '1'
+          ignore-unfixed: 'true'
+          severity: 'HIGH,CRITICAL'
+          
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v1
+        if: always() 
+        with:
+          sarif_file: 'trivy-results.sarif'
+         
