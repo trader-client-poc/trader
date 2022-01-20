@@ -19,7 +19,7 @@
 # FROM openliberty/open-liberty:21.0.0.9-full-java11-openj9-ubi
 
 # Using image with sec issues for demo
-FROM openliberty/open-liberty:20.0.0.9-full-java11-openj9-ubi
+FROM openliberty/open-liberty:21.0.0.9-full-java11-openj9-ubi
 
 USER root
 ARG VERBOSE=true
