@@ -27,12 +27,12 @@ ARG CREATE_OPENJ9_SCC=false
 ENV OPENJ9_SCC=false
 
 
-COPY --chown=1001:0 src/main/liberty/config /config
+# COPY --chown=1001:0 src/main/liberty/config /config
 
 # This script will add the requested XML snippets to enable Liberty features and grow image to be fit-for-purpose using featureUtility. 
 # Only available in 'kernel-slim'. The 'full' tag already includes all features for convenience.
 # RUN features.sh
-COPY --chown=1001:0 target/TraderUI.war /config/apps/TraderUI.war
+# COPY --chown=1001:0 target/TraderUI.war /config/apps/TraderUI.war
 
 USER 1001
 RUN configure.sh
