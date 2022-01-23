@@ -8,7 +8,7 @@
   <body>
     <img src="header.jpg" width="534" height="200" alt="header image"/>
     <p/>
-    Demo - Login to IBM Stock Trader (Running on: <%= System.getProperty("os.name")%> ver.:<%= System.getProperty("os.version")%> arch:<%= System.getProperty("os.arch")%>)
+    Demo  - Login to IBM Stock Trader (Running on: <%= System.getProperty("os.name")%> ver.:<%= System.getProperty("os.version")%> arch:<%= System.getProperty("os.arch")%>)
     <form method="post"/>
       <table>
         <tr>
