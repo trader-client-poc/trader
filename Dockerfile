@@ -21,8 +21,8 @@ FROM openliberty/open-liberty:21.0.0.9-full-java11-openj9-ubi
 USER root
 
 # added to have green scan
-RUN yum update -y \
-  && yum clean all
+# RUN yum update -y \
+#  && yum clean all
 
 ARG VERBOSE=true
 ARG CREATE_OPENJ9_SCC=false
