@@ -33,7 +33,7 @@ env:
   
   GITHUB_SHA: ${{ github.sha }}
   
-  GITOPS_REPO: trader-client-poc/gitops
+  GITOPS_REPO: trader-client-poc/git-ops
   GITOPS_DIR: trader
   GITOPS_USERNAME: ${{ secrets.GITOPS_USERNAME }}
   GITOPS_TOKEN: ${{ secrets.GITOPS_TOKEN }}
