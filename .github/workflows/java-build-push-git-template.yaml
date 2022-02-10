@@ -29,6 +29,7 @@ env:
   REGISTRY_USER: ${{ secrets.REGISTRY_USER }}
   REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
   IMAGE_NAME: trader-poc
+  APP_NAME: trader
   
   GITHUB_SHA: ${{ github.sha }}
   
