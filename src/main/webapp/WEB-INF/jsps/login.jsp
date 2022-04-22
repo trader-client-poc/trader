@@ -8,7 +8,7 @@
   <body>
     <img src="header.jpg" width="534" height="200" alt="header image"/>
     <p/>
-    v9 Live with Rama - new change 2- Playback Login to IBM Stock Trader (Running on: <%= System.getProperty("os.name")%> ver.:<%= System.getProperty("os.version")%> arch:<%= System.getProperty("os.arch")%>)
+    v10 Live with Rama/Greg - new change 2- Playback Login to IBM Stock Trader (Running on: <%= System.getProperty("os.name")%> ver.:<%= System.getProperty("os.version")%> arch:<%= System.getProperty("os.arch")%>)
     <form method="post"/>
       <table>
         <tr>
